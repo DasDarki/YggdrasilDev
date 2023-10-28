@@ -40,6 +40,8 @@ export class Project {
             return;
         }
 
+        console.log(`[${this.index} | ${this.name}] Starting...`);
+
         this._shouldStop = false;
 
         for (let i = 0; i < this.config.commands.length; i++) {
@@ -61,6 +63,8 @@ export class Project {
             return;
         }
 
+        console.log(`[${this.index} | ${this.name}] Stopping...`);
+
         this._shouldStop = true;
         
         if (this.runningProcess) {
@@ -75,6 +79,22 @@ export class Project {
 
         await this.stop();
         await this.start();
+    }
+
+    public async execCommandInCwd(command: string) {
+        if (this.cwd) {
+            await runCommand(this.yggdrasil, new Command(command), this.cwd, this.outputCallback.bind(this), this.errorCallback.bind(this), true);
+        }
+    }
+
+    public reprintHistory() {
+        for (const msg of this.outputHistory) {
+            if (msg.isError) {
+                console.error(msg.text);
+            } else {
+                console.log(msg.text);
+            }
+        }
     }
 
     private onProcessExit = () => {

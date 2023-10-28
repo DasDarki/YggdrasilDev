@@ -6,6 +6,7 @@ import { Project } from "./project";
 import { ParseError } from "./util";
 import { Command, parseCommand, parseCommands } from "./command";
 import { WatcherConfig } from "./watcher";
+import { executeCommandLine } from "./console/manager";
 
 const cc = require("node-console-colors");
 
@@ -34,9 +35,35 @@ export class Yggdrasil {
         }
 
         process.on('SIGINT', this.onSigInt.bind(this));
+        process.openStdin().addListener("data", this.onStdIn.bind(this));
     }
 
-    private onSigInt = async () => {
+    public getProjectByName(name: string): Project|undefined {
+        return this.projects.find(project => project.name === name);
+    }
+
+    public getProjectByIndex(index: number): Project|undefined {
+        return this.projects.find(project => project.index === index);
+    }
+
+    private onStdIn = async (data: any) => {
+        if (typeof data !== "string") {
+            if (Buffer.isBuffer(data)) {
+                data = data.toString("utf-8");
+            } else {
+                return;
+            }
+        }
+
+        const line = data.trim();
+        if (line.length === 0) {
+            return;
+        }
+
+        await executeCommandLine(this, line);
+    }
+
+    public onSigInt = async () => {
         console.log();
         console.log(cc.set("fg_yellow", "Received SIGINT, stopping all projects..."));
 
