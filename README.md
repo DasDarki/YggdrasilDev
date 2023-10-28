@@ -1,6 +1,12 @@
 # Yggdrasil Development CLI
 Yggdrasil Development CLI or "yggdev" is a simple CLI tool to enhance your development experience in a stack.
 
+## Installation
+To install `yggdev`, run the following command:
+```bash
+npm install -g yggdev
+```
+
 ## Yggdev Configuration Guide
 
 Yggdev utilizes a configuration file named `yggdev.json` to manage and orchestrate multiple projects simultaneously. This guide will walk you through the structure and functionalities of this configuration.
