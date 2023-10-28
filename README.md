@@ -275,3 +275,45 @@ Once `Yggdev` is up and running, you can interact with it directly through the c
     - **Usage**: `showall reprint`
 
 Leverage these commands for a flexible and dynamic development experience in `Yggdev`. If in doubt, the `help` command is always there to guide you through each command's functionality.
+
+Absolutely, I'll document this information for you. Here's how it could be written:
+
+## Yggdev CLI Arguments
+
+### Basic Execution
+
+To execute `Yggdev`:
+
+```bash
+yggdev [--disable-ipc]
+```
+
+This command runs `Yggdev` in the current directory. The directory must contain a `yggdev.json` configuration file. The optional flag `--disable-ipc` prevents the starting of an IPC (Inter-Process Communication) server. If this flag is set or the `yggdev.json` contains `"ipc": false` (though by default it's `true`), the IPC server won't be initialized. A downside of disabling IPC is that the `yggdev exec` feature becomes unavailable.
+
+### Initialization
+
+To create a default configuration:
+
+```bash
+yggdev init [--with-hooks]
+```
+
+This command initializes a default `yggdev.json` configuration in the current directory. By adding the optional flag `--with-hooks`, dummy hooks will also be included in the default configuration.
+
+Understood. Let's adjust the documentation to reflect that:
+
+### Exec Command with Interactive Console Commands
+
+When you have a running `Yggdev` instance with IPC enabled:
+
+```bash
+yggdev exec <interactive_command>
+```
+
+The `yggdev exec <interactive_command>` sends one of the previously mentioned interactive console commands (like `help`, `exit`, `cmd`, etc.) to the `Yggdev` instance running in the current directory, provided there's an instance operating within this folder. This allows you to interface with a running instance without directly being in its console. 
+
+This feature relies on the IPC server to communicate between processes. Make sure IPC is enabled in your `yggdev.json` or not disabled via the `--disable-ipc` flag when starting Yggdev to use this feature.
+
+### Yggdev Runtime Folder
+
+Upon starting with IPC, `Yggdev` creates a runtime folder named `.yggdev`. If this directory isn't already listed in the `.gitignore` file (which it should be if initialized with `yggdev init`), it's advisable to add `.yggdev` to your `.gitignore` to ensure runtime data doesn't get versioned in your Git repository.
