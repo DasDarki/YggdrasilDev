@@ -53,7 +53,7 @@ function createDefaultConfig(withHooks: boolean) {
     }
 }
 
-function runCLI() {
+export function runCLI() {
     const args = process.argv.slice(2);
     if (args.length > 0) {
         if (args[0] === "exec") {
@@ -71,5 +71,3 @@ function runCLI() {
         start();
     }
 }
-
-runCLI();
