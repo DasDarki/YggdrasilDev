@@ -15,6 +15,7 @@ export class Yggdrasil {
     public readonly watchers: WatcherConfig[] = [];
 
     public constructor(
+        public readonly disableSocket: boolean,
         public readonly onInit?: Hook,
         public readonly onStart?: Hook,
         public readonly onStop?: Hook,
@@ -97,12 +98,17 @@ export function parseConfig(): Yggdrasil {
         throw new ParseError("The yggdev.json file must be a valid JSON object!");
     }
 
+    let disableSocket = false;
+    if (typeof configObj["ipc"] === "boolean") {
+        disableSocket = !configObj["ipc"];
+    }
+
     const onInit = parseHook(HookType.Init, configObj);
     const onStart = parseHook(HookType.Start, configObj);
     const onStop = parseHook(HookType.Stop, configObj);
     const onCleanup = parseHook(HookType.Cleanup, configObj);
 
-    const yggdrasil = new Yggdrasil(onInit, onStart, onStop, onCleanup);
+    const yggdrasil = new Yggdrasil(disableSocket, onInit, onStart, onStop, onCleanup);
 
     const projectsObj = configObj["projects"];
     if (typeof projectsObj !== "object") {
