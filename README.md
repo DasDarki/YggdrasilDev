@@ -228,3 +228,50 @@ Here are the valid OS identifiers:
    ```
 
 Note: When using OS conditional commands, ensure the rest of your configuration accounts for any potential differences in behavior or output. Always test your setup on all target OSs to ensure consistent behavior.
+
+## Interactive Console Commands
+
+Once `Yggdev` is up and running, you can interact with it directly through the console. This suite of commands allows you to control, manage, and debug your projects without stopping `Yggdev`. The commands can target specific projects either by their name (`project_name`) or by their temporary index (`project_index`). Here's a comprehensive list of the available commands:
+
+1. **`help [command]`**
+   - **Description**: Displays a list of all available commands. Optionally, you can specify a command to get more information about it.
+   - **Usage**: `help` or `help cmd`
+
+2. **`exit`**
+   - **Description**: Gracefully stops `Yggdev` and halts all running projects.
+   - **Usage**: `exit`
+
+3. **`cmd <project_name|project_index> <your_command>`**
+   - **Description**: Sends a command to a running project. The command is executed within the working directory of the targeted project.
+   - **Usage**: `cmd 1 npm install` or `cmd frontend npm install`
+   - **Example**: To run a migration on the backend project, use: `cmd backend npx sequelize-cli db:migrate`
+
+4. **`restart <project_name|project_index>`**
+   - **Description**: Restarts the targeted project.
+   - **Usage**: `restart 2` or `restart frontend`
+
+5. **`stop <project_name|project_index>`**
+   - **Description**: Stops the targeted project.
+   - **Usage**: `stop 3` or `stop backend`
+
+6. **`start <project_name|project_index>`**
+   - **Description**: Starts the targeted project if it was previously stopped.
+   - **Usage**: `start 1` or `start backend`
+
+7. **`hide <project_name|project_index>`**
+   - **Description**: Suppresses the console output of the targeted project. The project remains running; only its output is hidden.
+   - **Usage**: `hide 2` or `hide frontend`
+
+8. **`show <project_name|project_index>`**
+   - **Description**: Resumes the display of console output for a previously hidden project.
+   - **Usage**: `show 3` or `show backend`
+
+9. **`showonly <project_name|project_index> [filter]`**
+   - **Description**: Displays the console output solely for the targeted project, hiding outputs from all other projects. Optionally, use the `filter` flag to clear the console and reprint only the output of this project.
+   - **Usage**: `showonly 1 filter` or `showonly frontend filter`
+
+10. **`showall [reprint]`**
+    - **Description**: Resumes displaying console outputs for all projects. Optionally, use the `reprint` flag to clear the console and reprint outputs from all projects.
+    - **Usage**: `showall reprint`
+
+Leverage these commands for a flexible and dynamic development experience in `Yggdev`. If in doubt, the `help` command is always there to guide you through each command's functionality.
