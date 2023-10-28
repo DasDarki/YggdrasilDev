@@ -1,0 +1,28 @@
+{
+  "name": "yggdev",
+  "version": "1.0.0",
+  "description": "Yggdrasil Development CLI or \"yggdev\" is a simple CLI tool to enhance your development experience in a stack.",
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "ts-node src/main.ts"
+  },
+  "keywords": [
+    "cli",
+    "development",
+    "concurrently",
+    "yggdrasil",
+    "yggdev"
+  ],
+  "author": "DasDarki",
+  "license": "LGPL-3.0-only",
+  "devDependencies": {
+    "@types/node": "^20.8.9",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "node-console-colors": "^1.1.5",
+    "pidtree": "^0.6.0"
+  }
+}
